@@ -28,6 +28,13 @@ exports.AIImprovedResumeDescription = async(req , res)=>{
             points
         } = req.body;
 
+         if(!title || !organization || !type || !startDate || !endDate  || !points ){
+            return res.status(400).json({
+                success : false,
+                message : "all field are required"
+            })
+        }
+
         // the editor sends the bullet points as one text (one point per line)
         const pointsText = Array.isArray(points) ? points.join("\n") : String(points || "");
 
@@ -102,19 +109,19 @@ exports.AIImprovedResumeDescription = async(req , res)=>{
             response = await generateGemini(prompt, config);
             console.log("Gemini success");
         } catch (error) {
-            console.log("Gemini failed:", error.message);
+            console.log("Gemini provider failed");
             try {
                 console.log("Trying OpenRouter...");
                 response = await generateOpenRouter(prompt);
                 console.log("OpenRouter success");
             } catch (error) {
-                console.log("OpenRouter failed:", error.message);
+                console.log("OpenRouter provider failed");
                 try {
                     console.log("Trying Groq...");
                     response = await generateGroq(prompt);
                     console.log("Groq success");
                 } catch (error) {
-                    console.log("Groq failed:", error.message);
+                    console.log("Groq provider failed");
                     throw new Error("All AI providers failed");
                 }
             }

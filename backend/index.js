@@ -3,28 +3,40 @@ const express = require("express");
 const cookieParser = require('cookie-parser')
 const router = express.Router();
 const app = express();
+const helmet = require("helmet");
+const {RateLimitor} = require("./middlewares/RateLimitor")
 app.use(cookieParser());
+app.use(helmet());
 app.use(express.json());
 const fileUpload = require("express-fileupload");
 const { cloudinaryConnect } = require("./config/cloudinary");
 require("dotenv").config();
 const { connect } = require("./config/database");
 const PORT = process.env.PORT || 4000;
+app.use(RateLimitor);
 connect();
 cloudinaryConnect();
 
 const profileRoutes = require("./routes/profile");
 const interviewRoutes = require("./routes/interviewRoutes");
 const industrialRoutes = require("./routes/industryInsight");
-const resumeRoutes = require("./routes/Resume");
+const resumeRoutes = require("./routes/Resume"); 
+
 const cors = require("cors");
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+const allowedOrigins = process.env.CORS_ORIGINS || "http://localhost:5173";
+app.use(cors({
+    origin: allowedOrigins,
+     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
 app.use(
     fileUpload({
         useTempFiles: true,
-        tempFileDir: "/tmp"
+        tempFileDir: "/tmp" 
     })
 )
+app.use(RateLimitor);
 
 
 

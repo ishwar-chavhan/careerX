@@ -1,7 +1,7 @@
 const express = require("express");
 
 const router = express.Router();
-
+const {aiRateLimitor} = require("../middlewares/RateLimitor");
 const {
     createResume,
     getMyResumes,
@@ -17,7 +17,7 @@ const {
 const { auth } = require("../middlewares/Auth");
 
 router.post("/create", auth, createResume);
-router.post("/ai-improve-description", auth, AIImprovedResumeDescription);
+router.post("/ai-improve-description",aiRateLimitor, auth, AIImprovedResumeDescription);
 // "/my-resumes" must stay ABOVE "/:resumeId", otherwise express treats "my-resumes" as an id
 router.get("/my-resumes", auth, getMyResumes);
 router.get("/:resumeId", auth, getResumeById);

@@ -8,6 +8,13 @@ exports.createResume = async(req , res)=>{
         const { title, contact, skills, experience, projects, education } = req.body;
         const userId = req.userId.id;
 
+         if(!title || !contact || !skills || !experience || !projects  || !education ){
+            return res.status(400).json({
+                success : false,
+                message : "all field are required"
+            })
+        }
+
         if(!contact || !contact.fullName){
             return res.status(400).json({
                 success : false,
@@ -67,7 +74,7 @@ exports.createResume = async(req , res)=>{
 exports.getMyResumes = async(req , res)=>{
     try{
         const userId = req.userId.id;
-
+        
         const user = await User.findById(userId);
         if(!user){
             return res.status(404).json({
@@ -141,6 +148,12 @@ exports.updateResume = async(req , res)=>{
         const { resumeId } = req.params;
         const { title, contact, skills, experience, projects, education } = req.body;
         const userId = req.userId.id;
+         if(!title || !contact || !skills || !experience || !projects  || !education ){
+            return res.status(400).json({
+                success : false,
+                message : "all field are required"
+            })
+        }
 
         if(!resumeId){
             return res.status(400).json({

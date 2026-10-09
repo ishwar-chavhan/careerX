@@ -263,13 +263,13 @@ exports.industrialInsight = async (req, res) => {
             response = await generateGemini(prompt, config);
             console.log("Gemini success");
         } catch (error) {
-            console.log("Gemini failed:", error.message);
+            console.log("Gemini provider failed");
             try {
                 console.log("Trying OpenRouter...");
                 response = await generateOpenRouter(prompt);
                 console.log("OpenRouter success");
             } catch (error) {
-                console.log("OpenRouter failed:", error.message);
+                console.log("OpenRouter provider failed");
 
                 try {
 
@@ -281,7 +281,7 @@ exports.industrialInsight = async (req, res) => {
 
                 } catch (error) {
 
-                    console.log("Groq failed:", error.message);
+                    console.log("Groq provider failed");
 
                     throw new Error("All AI providers failed");
                 }
@@ -340,8 +340,7 @@ exports.industrialInsight = async (req, res) => {
         console.error("Industrial Insight Error:", error);
         return res.status(500).json({
             success: false,
-            message: "Failed to generate industrial insight",
-            error: error.message
+            message: "Failed to generate industrial insight"
         });
     }
 };

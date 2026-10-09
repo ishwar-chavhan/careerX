@@ -59,7 +59,7 @@ exports.updateUserInfo = async (req, res) => {
         console.log("error in  User updateUserInfo ", error)
         return res.status(500).json({
             success: false,
-            message: error.message
+            message: "Failed to update user information"
         })
 
     }
@@ -105,7 +105,7 @@ exports.updateProfilePicture = async (req, res) => {
         console.log("error in file upload me", error);
         return res.status(500).json({
             success: false,
-            message: error.message,
+            message: "Failed to update profile picture",
         })
     }
 }

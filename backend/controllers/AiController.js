@@ -130,7 +130,7 @@ exports.generateInterviewQuestion = async (req, res) => {
         console.log(err);
         return res.status(500).json({
             success: false,
-            message: err.message
+            message: "Failed to generate interview questions"
         })
     }
 }
@@ -170,7 +170,7 @@ exports.getInterviewQuestion = async (req, res) => {
         console.log("error in getAllQuestion", error);
         return res.status(500).json({
             success: false,
-            message: error.message
+            message: "Failed to fetch interview questions"
         })
     }
 }
@@ -318,7 +318,7 @@ exports.getAIsFeedBack = async (req, res) => {
         console.log("error in getAllQuestion", error);
         return res.status(500).json({
             success: false,
-            message: error.message
+            message: "Failed to generate interview feedback"
         })
     }
 }
@@ -387,7 +387,7 @@ exports.getUserFeedbackData = async (req, res) => {
         console.log("error in get User feedback data", error)
         return res.status(500).json({
             success: false,
-            message: error.message
+            message: "Failed to fetch user feedback"
         })
     }
 }
@@ -428,7 +428,7 @@ exports.getInterviewHistory = async (req, res) => {
         console.log("error in getInterviewHistory", error);
         return res.status(500).json({
             success: false,
-            message: error.message
+            message: "Failed to fetch interview history"
         })
     }
 }
@@ -478,7 +478,7 @@ exports.getInterviewResult = async (req, res) => {
         console.log("error in getInterviewResult", error);
         return res.status(500).json({
             success: false,
-            message: error.message
+            message: "Failed to fetch interview result"
         })
     }
 }

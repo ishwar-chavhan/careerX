@@ -33,7 +33,7 @@ exports.OtpSend = async (req, res) => {
         console.log("error", err);
         res.status(500).json({
             success: false,
-            message: err.message
+            message: "Failed to send OTP"
         })
     }
 }
@@ -116,7 +116,7 @@ console.log("reach at level 7");
         console.log("error in sign up", error);
         return res.status(500).json({
             success: false,
-            message: error.message
+            message: "Unable to complete sign-up"
         })
 
     }
@@ -178,7 +178,7 @@ exports.login = async (req, res) => {
         console.log("error in login", error)
         return res.status(500).json({
             success: false,
-            message: error.message
+            message: "Unable to log in"
         })
     }
 }
@@ -239,7 +239,7 @@ exports.changePassword = async (req, res) => {
         console.log("error in change password", error)
         return res.status(500).json({
             success: false,
-            message: error.message
+            message: "Unable to change password"
         })
     }
 }
@@ -345,7 +345,7 @@ exports.googleLogin = async (req, res) => {
         console.log("error in google login and sign up", error);
         return res.status(500).json({
             success: false,
-            message: error.message
+            message: "Unable to complete Google sign-in"
         })
     }
 }
