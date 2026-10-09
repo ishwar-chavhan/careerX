@@ -17,9 +17,9 @@ const {
 } = require("../middlewares/Auth");
 
 
-router.post("/generateInterviewQuestion",aiRateLimitor, auth, isUser, generateInterviewQuestion);
+router.post("/generateInterviewQuestion",auth, isUser,aiRateLimitor, generateInterviewQuestion);
 router.post("/getInterviewQuestion", auth, isUser, getInterviewQuestion);
-router.post("/getAIsFeedBack", auth, isUser, getAIsFeedBack);
+router.post("/getAIsFeedBack", auth, isUser,aiRateLimitor, getAIsFeedBack);
 router.post("/getFeedbackByCount", auth, isUser, getFeedbackByCount);
 router.post("/getUserFeedbackData", auth, isUser, getUserFeedbackData);
 router.post("/getInterviewHistory", auth, isUser, getInterviewHistory);

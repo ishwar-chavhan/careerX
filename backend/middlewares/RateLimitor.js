@@ -1,6 +1,5 @@
-import { rateLimit } from 'express-rate-limit';
-
-export const RateLimitor = rateLimit({
+const { rateLimit } = require("express-rate-limit");
+ const RateLimitor = rateLimit({
     windowMs : 10 * 60 * 1000,
     max : 100,
     message : {
@@ -13,9 +12,10 @@ export const RateLimitor = rateLimit({
 
 
 
- export const aiResumeLimiter = rateLimit({
-    windowMs: 10 * 60 * 1000, // 15 minutes
-    limit: 5,                 // 5 requests per window
+ const aiResumeLimiter = rateLimit({
+    windowMs: 10 * 60 * 1000, 
+    limit: 5,    
+    skipSuccessfulRequests: true,             
     message: {
         success: false,
         message: "Too many requests. Try again later."
@@ -24,9 +24,9 @@ export const RateLimitor = rateLimit({
     legacyHeaders: false
 });
 
-export const aiRateLimitor = rateLimit({
-    windowMs: 10 * 60 * 1000, // 15 minutes
-    limit: 3,                 // 5 requests per window
+const aiRateLimitor = rateLimit({
+    windowMs: 10 * 60 * 1000, 
+    limit:  10,                 
     message: {
         success: false,
         message: "Too many requests. Try again later."
@@ -35,6 +35,19 @@ export const aiRateLimitor = rateLimit({
     legacyHeaders: false
 })
 
-// module.exports = { aiResumeLimiter , RateLimitor };
 
+ const otpLimitor = rateLimit({
+    windowMs: 10 * 60 * 1000, 
+    limit: 5,                 
+    message: {
+        success: false,
+        message: "Too many requests. Try again later."
+    },
+    standardHeaders: true,
+    legacyHeaders: false
+})
+
+
+// module.exports = { aiResumeLimiter , RateLimitor };
+module.exports = { RateLimitor, aiResumeLimiter, aiRateLimitor , otpLimitor };
 // module.exports = RateLimitor;

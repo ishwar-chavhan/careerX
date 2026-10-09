@@ -277,14 +277,14 @@ exports.getAIsFeedBack = async (req, res) => {
         }
 
         const info = JSON.parse(response);
-
+        const score = Math.min(10, Math.max(0, Number(info.score) || 0));
         const feedback = await AIsAnswer.create({
             userId,
             interviewCount: count,
             question,
             answer,
             feedback: info.feedback,
-            score: info.score
+            score: score
         })
 
 

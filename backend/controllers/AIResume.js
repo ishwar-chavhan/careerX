@@ -27,13 +27,7 @@ exports.AIImprovedResumeDescription = async(req , res)=>{
             endDate,
             points
         } = req.body;
-
-         if(!title || !organization || !type || !startDate || !endDate  || !points ){
-            return res.status(400).json({
-                success : false,
-                message : "all field are required"
-            })
-        }
+        
 
         // the editor sends the bullet points as one text (one point per line)
         const pointsText = Array.isArray(points) ? points.join("\n") : String(points || "");

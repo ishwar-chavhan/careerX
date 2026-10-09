@@ -9,7 +9,7 @@ const {
 } = require("../middlewares/Auth");
 
 
-router.post("/industrialData",aiRateLimitor, auth, isUser, industrialInsight);
+router.post("/industrialData",auth, isUser,aiRateLimitor, industrialInsight);
 
 
 module.exports = router;

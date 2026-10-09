@@ -2,7 +2,7 @@ const User = require("../models/User");
 const mailSender = require("../utils/mailSender");
 const bcrypt = require("bcrypt");
 
-
+require("dotenv").config(); 
 exports.resetPasswordToken = async (req, res) => {
     try {
         const { email } = req.body;
@@ -18,14 +18,14 @@ exports.resetPasswordToken = async (req, res) => {
             { email: email },
             {
                 token: token,
-                resetPasswordExpires: Date.now() + 5 * 60 * 60 * 1000
+                resetPasswordExpires: Date.now() + 5  * 60 * 1000
             },
             {
                 new: true
             }
         )
 
-        const URL = `http://localhost:5173/reset-password/${token}`;
+        const URL = `${process.env.FRONTEND_URL}/reset-password/${token}`;
 
         await mailSender(email, "reset password link", `reset password url : ${URL}`);
 
@@ -73,13 +73,16 @@ exports.resetPassword = async (req, res) => {
         console.log("reached at this level")
         await User.findOneAndUpdate(
             { token: token },
-            {
-                password: hashedPassword,
+            { 
+                password: hashedPassword, 
+                token: undefined,
+                resetPasswordExpires: undefined
             },
             {
                 new: true,
             }
         );
+        
 
         // await mailSender(email, "password mail", "you have successfully reset your password");
 
