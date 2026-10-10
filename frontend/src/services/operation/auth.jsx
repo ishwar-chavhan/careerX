@@ -1,7 +1,7 @@
 import { authEndpoint } from "../apis";
 import { apiConnector } from "../apiConnector";
 import toast from "react-hot-toast";
-
+import { getErrorMessage } from "../../utils/errorMessage";
 const {
     SENDOTP_API,
     SIGNUP_API,
@@ -30,7 +30,8 @@ export async function sendotp(email, navigate) {
 
     } catch (error) {
         console.log("SENDOTP api error.......", error);
-        toast.error("could not send otp");
+        // toast.error("could not send otp");
+            toast.error(getErrorMessage(error, "could not send otp"));
     } finally {
         toast.dismiss(toastId);
     }
@@ -66,7 +67,8 @@ export async function login(email, password, navigate, setUser, setToken) {
         navigate("/");
     } catch (error) {
         console.log("login api error.....", error);
-        toast.error("Login failed");
+        // toast.error("Login failed");
+            toast.error(getErrorMessage(error, "Login failed"));
     } finally {
         toast.dismiss(toastId);
     }
@@ -102,7 +104,8 @@ export async function signUp(
 
     } catch (error) {
         console.log(error);
-        toast.error("Sign up failed");
+        // toast.error("Sign up failed");
+            toast.error(getErrorMessage(error, "Sign up failed"));
     } finally {
         toast.dismiss(toastId);
     }
@@ -130,6 +133,7 @@ export const changePassword = async (data, token) => {
         return true;
     } catch (error) {
         console.log("error in changePassword", error);
+           toast.error(getErrorMessage(error, "error in changePassword"));
         throw new Error(error);
     }
 };
@@ -149,6 +153,7 @@ export const resetToken = async (data , token)=>{
         return true;
     } catch (error) {
         console.log("error in resetToken", error);
+        toast.error(getErrorMessage(error, ""));
         throw error;
     }
 }
@@ -180,6 +185,7 @@ export const ResetPasswordNow=  async (data )=>{
         return true;
     } catch (error) {
         console.log("error in resetToken", error);
+            toast.error(getErrorMessage(error, "reset password failed"));
         throw error;
     }
 }

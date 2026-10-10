@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {aiRateLimitor} = require("../middlewares/RateLimitor");
+const {interviewLimiter, feedbackLimiter} = require("../middlewares/RateLimitor");
 const {
     generateInterviewQuestion,
     getInterviewQuestion,
@@ -17,11 +17,11 @@ const {
 } = require("../middlewares/Auth");
 
 
-router.post("/generateInterviewQuestion",auth, isUser,aiRateLimitor, generateInterviewQuestion);
-router.post("/getInterviewQuestion", auth, isUser, getInterviewQuestion);
-router.post("/getAIsFeedBack", auth, isUser,aiRateLimitor, getAIsFeedBack);
-router.post("/getFeedbackByCount", auth, isUser, getFeedbackByCount);
-router.post("/getUserFeedbackData", auth, isUser, getUserFeedbackData);
+router.post("/generateInterviewQuestion",auth, isUser,interviewLimiter, generateInterviewQuestion);
+router.post("/getInterviewQuestion", auth, isUser,feedbackLimiter, getInterviewQuestion);
+router.post("/getAIsFeedBack", auth, isUser,interviewLimiter, getAIsFeedBack);
+router.post("/getFeedbackByCount", auth, isUser,feedbackLimiter, getFeedbackByCount);
+router.post("/getUserFeedbackData", auth, isUser,feedbackLimiter, getUserFeedbackData);
 router.post("/getInterviewHistory", auth, isUser, getInterviewHistory);
 router.post("/getInterviewResult", auth, isUser, getInterviewResult);
 

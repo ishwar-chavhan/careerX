@@ -1,7 +1,7 @@
 import { industrialEndpoint } from "../apis";
 import toast from "react-hot-toast";
 import { apiConnector } from "../apiConnector";
-
+import { getErrorMessage } from "../../utils/errorMessage";
 const {
     INDUSTRY_TRENDS
 } = industrialEndpoint;
@@ -23,7 +23,7 @@ export const fetchIndustryInsight = async (industry, token) => {
         result = response.data.data;
     } catch (error) {
         console.log("Industry fetch error:", error);
-        toast.error(error?.response?.data?.message || "Could not fetch industry data");
+         toast.error(getErrorMessage(error, "Industry fetch error"));
         throw error;
     } finally {
         toast.dismiss(toastId);

@@ -25,15 +25,15 @@ const {
 } = require("../middlewares/Auth");
 
 router.post("/resetPassword",aiResumeLimiter, resetPassword);
-router.post("/resetPasswordToken", aiResumeLimiter,resetPasswordToken);
+router.post("/resetPasswordToken", otpLimitor, resetPasswordToken);
 
 router.post("/OtpSend",otpLimitor ,OtpSend);
 router.post("/signUp",aiResumeLimiter, signUp);
 router.post("/login",aiResumeLimiter, login);
-router.post("/changePassword", auth, isUser, changePassword);
+router.post("/changePassword", auth, isUser,aiResumeLimiter, changePassword);
 router.post("/googleLogin",aiResumeLimiter, googleLogin);
 
-router.post("/updateProfilePicture", auth, isUser, updateProfilePicture);
-router.post("/updateUserInfo", auth, isUser, updateUserInfo);
+router.post("/updateProfilePicture", auth, isUser,aiResumeLimiter, updateProfilePicture);
+router.post("/updateUserInfo", auth, isUser,aiResumeLimiter, updateUserInfo);
 
 module.exports = router;

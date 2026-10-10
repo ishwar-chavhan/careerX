@@ -1,13 +1,7 @@
-// src/services/operation/resumeAPI.js
-// Same style as your other operation files: apiConnector(method, url, body, headers)
-// and the token passed in as the last argument.
-//
-// Check these two import lines against your project:
-//   - apiConnector file name/case  ("../apiConnector" or "../apiconnector")
-//   - resumeEndpoints must be added to apis.js first (see resumeEndpoints.snippet.js)
 import { apiConnector } from "../apiConnector";
 import { resumeEndpoints } from "../apis";
-
+import { getErrorMessage } from "../../utils/errorMessage";
+import toast from "react-hot-toast";
 const {
     CREATE_RESUME_API,
     GET_MY_RESUMES_API,
@@ -34,6 +28,7 @@ export const getMyResumes = async (token) => {
         return response.data.data;
     } catch (error) {
         console.log("error in getMyResumes", error);
+         toast.error(getErrorMessage(error, "error in getMyResumes"));
         throw toError(error);
     }
 };
@@ -47,6 +42,7 @@ export const getResumeById = async (resumeId, token) => {
         return response.data.data;
     } catch (error) {
         console.log("error in getResumeById", error);
+          toast.error(getErrorMessage(error, "error in getResumeById"));
         throw toError(error);
     }
 };
@@ -61,6 +57,7 @@ export const createResume = async (data, token) => {
         return response.data.data; // the created resume (has _id)
     } catch (error) {
         console.log("error in createResume", error);
+        toast.error(getErrorMessage(error,"error in createResume"));
         throw toError(error);
     }
 };
@@ -74,6 +71,7 @@ export const updateResume = async (resumeId, data, token) => {
         return response.data.data;
     } catch (error) {
         console.log("error in updateResume", error);
+        toast.error(getErrorMessage(error,"error in updateResume"));
         throw toError(error);
     }
 };
@@ -87,6 +85,7 @@ export const deleteResume = async (resumeId, token) => {
         return true;
     } catch (error) {
         console.log("error in deleteResume", error);
+        toast.error(getErrorMessage(error,"error in deleteResume"));
         throw toError(error);
     }
 };
@@ -102,6 +101,7 @@ export const improveResumePoints = async (data, token) => {
         return response.data.data.points;
     } catch (error) {
         console.log("error in improveResumePoints", error);
+        toast.error(getErrorMessage(error,"error in improveResumePoints"));
         throw toError(error);
     }
 };

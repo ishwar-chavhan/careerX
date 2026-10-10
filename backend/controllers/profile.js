@@ -46,8 +46,7 @@ exports.updateUserInfo = async (req, res) => {
 
          console.log("level4")
         userDetails = await User.findById(userId).populate("additionalDetails").exec();
-
-
+        userDetails.password = "";
         return res.status(200).json({
             success: true,
             message: "addition details updated successfully",
@@ -96,6 +95,7 @@ exports.updateProfilePicture = async (req, res) => {
             }
         ).populate("additionalDetails").exec();
 
+        response1.password = "";
         return res.status(200).json({
             success: true,
             user: response1,

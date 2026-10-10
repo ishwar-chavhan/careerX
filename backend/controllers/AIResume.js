@@ -27,7 +27,6 @@ exports.AIImprovedResumeDescription = async(req , res)=>{
             endDate,
             points
         } = req.body;
-        
 
         // the editor sends the bullet points as one text (one point per line)
         const pointsText = Array.isArray(points) ? points.join("\n") : String(points || "");
@@ -103,19 +102,19 @@ exports.AIImprovedResumeDescription = async(req , res)=>{
             response = await generateGemini(prompt, config);
             console.log("Gemini success");
         } catch (error) {
-            console.log("Gemini provider failed");
+            console.log("Gemini failed:", error.message);
             try {
                 console.log("Trying OpenRouter...");
                 response = await generateOpenRouter(prompt);
                 console.log("OpenRouter success");
             } catch (error) {
-                console.log("OpenRouter provider failed");
+                console.log("OpenRouter failed:", error.message);
                 try {
                     console.log("Trying Groq...");
                     response = await generateGroq(prompt);
                     console.log("Groq success");
                 } catch (error) {
-                    console.log("Groq provider failed");
+                    console.log("Groq failed:", error.message);
                     throw new Error("All AI providers failed");
                 }
             }

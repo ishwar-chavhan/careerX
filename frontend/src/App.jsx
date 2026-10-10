@@ -15,7 +15,9 @@ import InterviewHistory from "./component/InterviewPage/InterviewHistory";
 import InterviewSelect from "./component/InterviewPage/InterviewSelect";
 import ResumeList from "./component/ResumePage/ReumeList";
 import ResumeEditor from "./component/ResumePage/ResumeEditor";
-import ResumePreview from "./component/ResumePage/ResumePreview";
+// import ResumePreview from "./component/ResumePage/ResumePreview";
+import PrivateRoute from "./component/AuthPages/PrivateRoute";
+import PublicRoute from "./component/AuthPages/PublicRoute";
 function App() {
   return (
     <div className="overflow-x-hidden bg-[radial-gradient(circle_at_50%_0%,#020b18_0%,#000814_60%,#00060f_100%)] h-screen w-screen">
@@ -25,26 +27,33 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
+
+
+
+      <Route element={<PublicRoute />}>
         <Route path="/login" element={<Login />} />
         <Route path="/signUp" element={<Signup />} />
         <Route path="/Otp-verify" element={<OtpVerify />} />
         {/* <Route path="/reset-password" element={<OtpVerify />} /> */}
-        <Route path="/reset-password/:token" element={<ResetPassword />} />
-        <Route path="/forgot-password" element={<ForgotPassword/>} />
-        <Route path="/industrial-trends" element={<IndustrySelect />} />
-        <Route path="/industrial-trends/:industry" element={<IndustryInsights />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+      </Route>
 
-        <Route path="/ai-interview" element={<InterviewSelect />} />
-        <Route path="/ai-interview/:count" element={<InterviewExam />} />
-        <Route path="/ai-interview/history" element={<InterviewHistory />} />
-        <Route path="/ai-interview/result/:count" element={<InterviewResult />} />
 
-        <Route path="/resume-builder" element={<ResumeList />} />
-        <Route path="/resume-builder/new" element={<ResumeEditor />} />
-        <Route path="/resume-builder/:id" element={<ResumeEditor />} />
-
-      </Routes>
-    </div>
+     
+      <Route element={<PrivateRoute />}>
+      <Route path="/industrial-trends" element={<IndustrySelect />} />
+      <Route path="/industrial-trends/:industry" element={<IndustryInsights />} />
+      <Route path="/ai-interview" element={<InterviewSelect />} />
+      <Route path="/ai-interview/:count" element={<InterviewExam />} />
+      <Route path="/ai-interview/history" element={<InterviewHistory />} />
+      <Route path="/ai-interview/result/:count" element={<InterviewResult />} />
+      <Route path="/resume-builder" element={<ResumeList />} />
+      <Route path="/resume-builder/new" element={<ResumeEditor />} />
+      <Route path="/resume-builder/:id" element={<ResumeEditor />} />
+      </Route>
+    </Routes>
+    </div >
   )
 }
 

@@ -6,6 +6,12 @@ require("dotenv").config();
 exports.resetPasswordToken = async (req, res) => {
     try {
         const { email } = req.body;
+        if (typeof email !== "string") {
+            return res.status(400).json({ 
+                success: false, message: 
+                "invalid request"
+             });
+        }
         const userDetails = await User.findOne({ email: email });
         if (!userDetails) {
             return res.status(403).json({
@@ -53,6 +59,9 @@ exports.resetPassword = async (req, res) => {
                 message: "all field required"
             })
         }
+        if (typeof token !== "string" || typeof password !== "string") {
+                return res.status(400).json({ success: false, message: "invalid request" });
+        }
 
         const userDetails = await User.findOne({ token: token });
         if (!userDetails) {
@@ -74,9 +83,8 @@ exports.resetPassword = async (req, res) => {
         await User.findOneAndUpdate(
             { token: token },
             { 
-                password: hashedPassword, 
-                token: undefined,
-                resetPasswordExpires: undefined
+                $set: { password: hashedPassword },
+               $unset: { token: 1, resetPasswordExpires: 1 }
             },
             {
                 new: true,
