@@ -18,6 +18,7 @@ import ResumeEditor from "./component/ResumePage/ResumeEditor";
 // import ResumePreview from "./component/ResumePage/ResumePreview";
 import PrivateRoute from "./component/AuthPages/PrivateRoute";
 import PublicRoute from "./component/AuthPages/PublicRoute";
+import NotFound from "./pages/NotFound";
 function App() {
   return (
     <div className="overflow-x-hidden bg-[radial-gradient(circle_at_50%_0%,#020b18_0%,#000814_60%,#00060f_100%)] h-screen w-screen">
@@ -52,6 +53,9 @@ function App() {
       <Route path="/resume-builder/new" element={<ResumeEditor />} />
       <Route path="/resume-builder/:id" element={<ResumeEditor />} />
       </Route>
+
+
+    <Route path="*" element={<NotFound />} />
     </Routes>
     </div >
   )

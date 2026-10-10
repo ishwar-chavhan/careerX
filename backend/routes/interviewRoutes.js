@@ -19,7 +19,7 @@ const {
 
 router.post("/generateInterviewQuestion",auth, isUser,interviewLimiter, generateInterviewQuestion);
 router.post("/getInterviewQuestion", auth, isUser,feedbackLimiter, getInterviewQuestion);
-router.post("/getAIsFeedBack", auth, isUser,interviewLimiter, getAIsFeedBack);
+router.post("/getAIsFeedBack", auth, isUser, feedbackLimiter, getAIsFeedBack);
 router.post("/getFeedbackByCount", auth, isUser,feedbackLimiter, getFeedbackByCount);
 router.post("/getUserFeedbackData", auth, isUser,feedbackLimiter, getUserFeedbackData);
 router.post("/getInterviewHistory", auth, isUser, getInterviewHistory);
